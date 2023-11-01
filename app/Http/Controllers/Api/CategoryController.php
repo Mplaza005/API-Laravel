@@ -14,12 +14,11 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-      //$categories=Category::included();
-      $categories=Category::all();
-                             
-      return $categories;
-
+    { 
+      
+      //  $categories=Category::all();
+       $categories=Category::included()->filter()->get();
+       return $categories;
     }
 
     /**
@@ -30,6 +29,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+     
         $request->validate([
             'name' => 'required|max:255',
             'slug' => 'required|max:255|unique:categories',
@@ -47,11 +47,17 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)//si se pasa $id se utiliza la comentada
-    {
-        //$category = Category::with(['posts.user'])->findOrFail($id);
-       // $category = Category::included();
-         return $category;
+    public function show($id)//si se pasa $id se utiliza la comentada
+    {   
+      // $category = Category::findOrFail($id);
+     // $category = Category::with(['posts.user'])->findOrFail($id);
+     // $category = Category::with(['posts'])->findOrFail($id);
+      
+     // $category = Category::included();
+       $category = Category::included()->findOrFail($id);
+       return $category;
+//http://api.codersfree1.test/v1/categories/1/?included=posts.user
+
     }
 
     /**
