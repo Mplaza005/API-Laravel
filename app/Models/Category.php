@@ -14,6 +14,7 @@ class Category extends Model
     protected $fillable = ['name','slug'];//Campos que se van a asignacion masiva:
     protected $allowIncluded=['posts','posts.user'];//las posibles Querys que se pueden realizar
     protected $allowFilter=['id','name','slug'];
+    protected $allowSort=['id','name','slug'];
 
 
     //relacion uno a muchos
@@ -69,9 +70,43 @@ public function scopeFilter(Builder $query){
 
     }
 
-    //http://api.codersfree1.test/v1/categories?filter[name]=posts
+    //http://api.codersfree1.test/v1/categories?filter[name]=posts&filter[id]=2
 
     }
+//////////////////////////////////////////////////////////////////////////////////
+
+public function scopeSort(Builder $query){
+
+    
+    if(empty($this->allowSort)||empty(request('sort'))){
+        return;
+    }
+    
+    
+    $sortFields = explode(',', request('sort'));
+    $allowSort= collect($this->allowSort);
+
+    foreach($sortFields as $sortField ){
+
+         if($allowSort->contains($sortField)){
+
+            $query->orderBy($sortField,'asc');
+     
+        }
+
+    }
+
+     //http://api.codersfree1.test/v1/categories?sort=name
+    
+
+    }
+
+
+
+
+
+
+
 
 
 

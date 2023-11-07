@@ -17,7 +17,7 @@ class CategoryController extends Controller
     { 
       
       //  $categories=Category::all();
-       $categories=Category::included()->filter()->get();
+       $categories=Category::included()->filter()->sort()->get();
        return $categories;
     }
 
