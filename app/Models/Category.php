@@ -27,12 +27,12 @@ class Category extends Model
     public function scopeIncluded(Builder $query)
     {
 
-        if(empty($this->allowIncluded)||empty(request('included'))){// vaidamos que la lista blanca y la variable included enviada a travez de HTTP no este en vacia.
+        if(empty($this->allowIncluded)||empty(request('included'))){// validamos que la lista blanca y la variable included enviada a travez de HTTP no este en vacia.
             return;
         }
 
         
-        $relations = explode(',', request('included')); //['posts','relation2']
+        $relations = explode(',', request('included')); //['posts','relation2']//recuperamos el valor de la variable included y separa sus valores por una coma
 
        // return $relations;
 
