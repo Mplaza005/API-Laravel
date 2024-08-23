@@ -15,8 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=Category::all();
-        //$categories = Category::included()->get();
+       // $categories=Category::all();
+       $categories = Category::included();
         //$categories=Category::included()->filter();
         //$categories=Category::included()->filter()->sort()->get();
         //$categories=Category::included()->filter()->sort()->getOrPaginate();
@@ -52,11 +52,11 @@ class CategoryController extends Controller
     public function show($id) //si se pasa $id se utiliza la comentada
     {  
         
-       // $category = Category::findOrFail($id);
+        $category = Category::findOrFail($id);
         // $category = Category::with(['posts.user'])->findOrFail($id);
         // $category = Category::with(['posts'])->findOrFail($id);
         // $category = Category::included();
-        $category = Category::included()->findOrFail($id);
+       // $category = Category::included()->findOrFail($id);
         return response()->json($category);
         //http://api.codersfree1.test/v1/categories/1/?included=posts.user
 
