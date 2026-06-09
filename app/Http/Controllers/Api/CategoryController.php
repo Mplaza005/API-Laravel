@@ -15,11 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-       // $categories=Category::all();
-       $categories = Category::included();
-        //$categories=Category::included()->filter();
-        //$categories=Category::included()->filter()->sort()->get();
-        //$categories=Category::included()->filter()->sort()->getOrPaginate();
+         $categories = Category::included()->get();
+
         return response()->json($categories);
     }
 
@@ -50,8 +47,8 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id) //si se pasa $id se utiliza la comentada
-    {  
-        
+    {
+
         $category = Category::findOrFail($id);
         // $category = Category::with(['posts.user'])->findOrFail($id);
         // $category = Category::with(['posts'])->findOrFail($id);
@@ -94,3 +91,10 @@ class CategoryController extends Controller
         return response()->json($category);
     }
 }
+
+
+// $categories=Category::all();
+       //$categories = Category::with(['posts.user'])->get();
+//$categories=Category::included()->filter()->get();
+       //$categories=Category::included()->filter()->sort()->get();
+       //$categories=Category::included()->filter()->sort()->getOrPaginate();
